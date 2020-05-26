@@ -2,7 +2,7 @@ const express = require("express");
 const userRoutes = require('./routes/users');
 const app = express();
 const bodyParser = require("body-parser");
-
+const connection = require("./db");
 //middlewares
 app.use(bodyParser.json());
 
