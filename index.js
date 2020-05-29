@@ -1,13 +1,19 @@
 const express = require("express");
-const userRoutes = require('./routes/users');
+var cors = require('cors');
+const userRoutes = require("./routes/users");
+const homeRoute = require("./routes/home");
+
 const app = express();
-const bodyParser = require("body-parser");
+
 const connection = require("./db");
+
 //middlewares
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(cors());
 
 //routes
 app.use("/users", userRoutes);
+app.use("/home", homeRoute);
 
 //start the server
 const port = app.get('port') || 5000;

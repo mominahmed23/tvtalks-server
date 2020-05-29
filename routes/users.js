@@ -1,12 +1,54 @@
-const express = require("express");
-const router = require("express-promise-router")();
+const router = require("express").Router();
+const User = require("../model/User");
+const TOKEN_SECRET = require("../config");
+const jwt = require("jsonwebtoken");
 
-const usersController = require('../controllers/users');
+router.post('/signup', async(req, res)=>{
+    const {username, password} = req.body; 
+    const foundUser = await User.findOne({ username });
+       if(foundUser){
+            res.json({message:"user already exists"});
+        }else{
+            const newUser = new User({username, password});
+            try{
+                await newUser.save();
 
-router.route('/signup').post(usersController.signUp);
+                const token = jwt.sign(
+                   { username: foundUser.username },
+                   TOKEN_SECRET
+               )
+               res.json({message:"user saved",
+               token
+               });
+            }catch(err){
+                res.json({message:err});
+            }
+          
+        }
+});
 
-router.route('/signin').post(usersController.signIn);
+router.post('/login', async(req, res)=>{
+    const {username, password} = req.body;
+    const foundUser = await User.findOne({ username });
+       if(!foundUser){
+        return res.json({message:"incorrect username"});
+        }
+        
+        if(password !== foundUser.password){
+          
+            res.json({message:"incorrect password"});
+        
+        }else{
+            const token = jwt.sign(
+                { username: foundUser.username },
+                TOKEN_SECRET
+            )
+            res.json({message:"logged in successful",
+            token
+            });
+        }
+});
 
-router.route('/secret').get(usersController.secret);
+
 
 module.exports = router;
