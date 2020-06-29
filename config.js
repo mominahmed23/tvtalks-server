@@ -1,2 +1,3 @@
 const TOKEN_SECRET = "londonfootball";
 module.exports = TOKEN_SECRET;
+var token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1vbWluIiwiaWF0IjoxNTkxMTc2MzcwfQ.Y5gLiQfx5crt1wp6BHWrqJxPYdq4VJsnNQvkW5_MMh8"

@@ -6,8 +6,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     image: String,
     title: String,
-    year: String,
-    rating:Number
+    year: String
 });
 
 //create model

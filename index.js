@@ -2,6 +2,7 @@ const express = require("express");
 var cors = require('cors');
 const userRoutes = require("./routes/users");
 const homeRoute = require("./routes/home");
+const ratingRoute = require("./routes/rating");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 //routes
 app.use("/users", userRoutes);
 app.use("/home", homeRoute);
+app.use("/add", ratingRoute);
 
 //start the server
 const port = app.get('port') || 5000;
